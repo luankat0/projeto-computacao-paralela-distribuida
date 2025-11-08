@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./web
+    container_name: web_container
+    ports:
+      - "8080:8080"
+    networks:
+      - app_net
+
+  client:
+    build: ./client
+    container_name: client_container
+    depends_on:
+      - web
+    networks:
+      - app_net
+
+networks:
+  app_net:
+    driver: bridge
