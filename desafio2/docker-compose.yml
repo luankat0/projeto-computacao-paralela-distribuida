@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    build: ./db
+    container_name: db_container
+    volumes:
+      - db_data:/data
+  reader:
+    build: ./reader
+    container_name: reader_container
+    depends_on:
+      - db
+    volumes:
+      - db_data:/data
+
+volumes:
+  db_data:
