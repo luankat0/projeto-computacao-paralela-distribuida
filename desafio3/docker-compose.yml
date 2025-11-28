@@ -1,0 +1,32 @@
+services:
+  web:
+    build: ./web
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - cache
+    networks:
+      - app_net
+    environment:
+      - FLASK_ENV=development
+
+  cache:
+    image: "redis:alpine"
+    networks:
+      - app_net
+    
+  db:
+    image: "postgres:13-alpine"
+    environment:
+      - POSTGRES_PASSWORD=password
+    networks:
+      - app_net
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+networks:
+  app_net:
+
+volumes:
+  postgres_data:
