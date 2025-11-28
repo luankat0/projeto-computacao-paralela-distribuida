@@ -1,0 +1,23 @@
+services:
+  gateway:
+    build: ./gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - users_service
+      - orders_service
+    networks:
+     - micro_net
+
+  users_service:
+    build: ./users_service
+    networks:
+     - micro_net
+  
+  orders_service:
+    build: ./orders_service
+    networks:
+    - micro_net
+
+networks:
+  micro_net:
